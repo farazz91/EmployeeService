@@ -12,13 +12,13 @@ namespace EmployeeService.Controllers
     public class EmployeesController : ApiController
     {
         // GET: Employee
-        public IEnumerable<Employee> Get()
-        {
-            using(EmployeeDBEntities entities = new EmployeeDBEntities())
-            {
-                return entities.Employees.ToList();
-            }
-        }
+        //public IEnumerable<Employee> Get()
+        //{
+        //    using(EmployeeDBEntities entities = new EmployeeDBEntities())
+        //    {
+        //        return entities.Employees.ToList();
+        //    }
+        //}
         [System.Web.Http.HttpGet]
         public HttpResponseMessage FetchEmployees(int id)
         {
@@ -34,7 +34,24 @@ namespace EmployeeService.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Employee with id: " + id + " not found.");
                 }
             }
-        }        
+        }
+        public HttpResponseMessage Get(string Gender = "All")
+        {
+            using (EmployeeDBEntities entities = new EmployeeDBEntities())
+            {
+                switch (Gender.ToLower())
+                {
+                    case "all":
+                        return Request.CreateResponse(HttpStatusCode.OK, entities.Employees.ToList());
+                    case "male":
+                        return Request.CreateResponse(HttpStatusCode.OK, entities.Employees.Where(emp => emp.Gender == "male").ToList());
+                    case "female":
+                        return Request.CreateResponse(HttpStatusCode.OK, entities.Employees.Where(emp => emp.Gender == "female").ToList());
+                    default:
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Value for gender must be all,male,female. " + Gender + " is not valid");
+                }
+            }
+        }
         public HttpResponseMessage Post([FromBody] Employee employee)
         {
             try

@@ -20,7 +20,7 @@ namespace EmployeeService
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Formatters.Remove(config.Formatters.JsonFormatter);
+            //config.Formatters.Remove(config.Formatters.JsonFormatter);
         }
     }
 }

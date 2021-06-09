@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
-namespace EmployeeService
+namespace ClientApplication
 {
     public static class WebApiConfig
     {
@@ -20,16 +19,6 @@ namespace EmployeeService
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            //config.Formatters.Remove(config.Formatters.JsonFormatter);
-
-            //EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:57203/","","");  //Specifically making one origin accessable
-
-            //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");  //making all accessable origin,header,methods
-
-            //config.EnableCors(cors);
-
-            config.EnableCors();
         }
     }
 }

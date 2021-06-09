@@ -5,10 +5,12 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 
 namespace EmployeeService.Controllers
 {
+    [EnableCorsAttribute("*","*","*")]
     public class EmployeesController : ApiController
     {
         // GET: Employee
@@ -19,6 +21,7 @@ namespace EmployeeService.Controllers
         //        return entities.Employees.ToList();
         //    }
         //}
+        
         [System.Web.Http.HttpGet]
         public HttpResponseMessage FetchEmployees(int id)
         {
@@ -35,6 +38,8 @@ namespace EmployeeService.Controllers
                 }
             }
         }
+        //[EnableCors("*", "*", "*")]
+        //[DisableCors]
         public HttpResponseMessage Get(string Gender = "All")
         {
             using (EmployeeDBEntities entities = new EmployeeDBEntities())
